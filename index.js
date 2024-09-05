@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
-const Campground = require('./models/campgound')
+const Campground = require('./models/campgound');
 
 mongoose.connect('mongodb://localhost:27017/camp-journey');
 
@@ -14,6 +15,7 @@ db.once("open", () => {
 
 const app = express();
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -37,7 +39,7 @@ app.post('/campgrounds', async ( req, res ) => {
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
-})
+});
 
 app.get('/campgrounds/:id', async ( req, res ) => {
     const campground = await Campground.findById(req.params.id)
