@@ -14,6 +14,13 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@maptiler/client@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@maptiler/client/-/client-2.0.0.tgz#3cebacab586a29872605802b79aa4e1fd94f0ba5"
+  integrity sha512-0sxRhpizfkZPY4cEBMUxF9WaWraMPkWNJxi373qaGfP/e8aKFudt5GlHvOKc3hI0bjAyevAdjVJbKC6SUxOGkg==
+  dependencies:
+    quick-lru "^7.0.0"
+
 "@mongodb-js/saslprep@^1.1.5":
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/@mongodb-js/saslprep/-/saslprep-1.1.8.tgz#d39744540be8800d17749990b0da95b4271840d1"
@@ -773,6 +780,11 @@ qs@6.11.0:
   integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
+
+quick-lru@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-7.0.0.tgz#447f6925b33ae4d2d637e211967d74bae4b99c3f"
+  integrity sha512-MX8gB7cVYTrYcFfAnfLlhRd0+Toyl8yX8uBx1MrX7K0jegiz9TumwOK27ldXrgDlHRdVi+MqU9Ssw6dr4BNreg==
 
 random-bytes@~1.0.0:
   version "1.0.0"
