@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
-const Campground = require('../models/campgound');
+const Campground = require('../models/campground');
 
 mongoose.connect('mongodb://localhost:27017/camp-journey');
 
@@ -16,7 +16,7 @@ const Sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async() => {
     await Campground.deleteMany({});
-    for(let i = 0; i < 50; i++) {
+    for(let i = 0; i < 300; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const Price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
@@ -25,6 +25,13 @@ const seedDB = async() => {
             title: `${Sample(descriptors)}, ${Sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, modi qui! Accusantium incidunt ut nesciunt at adipisci. Aperiam molestiae quis voluptatem quod enim sapiente, voluptas ab veritatis culpa tenetur magnam.',
             price: Price,
+            geometry: {
+                type: 'Point',
+                coordinates: [ 
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
+            },
             images: [
                 {
                   url: 'https://res.cloudinary.com/nishant0107/image/upload/v1726378347/CampJourney/oncen4wwon9e42ncmj9r.jpg',
@@ -38,7 +45,7 @@ const seedDB = async() => {
                   url: 'https://res.cloudinary.com/nishant0107/image/upload/v1726378351/CampJourney/vqqlcj3g6n05ydylcea6.jpg',
                   filename: 'CampJourney/vqqlcj3g6n05ydylcea6'
                 }
-              ]
+            ]
         })
         await camp.save();
     }

@@ -1,4 +1,4 @@
-const Campground = require('../models/campgound');
+const Campground = require('../models/campground');
 const maptilerClient = require('@maptiler/client');
 maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 const { cloudinary } = require('../cloudinary/app');
