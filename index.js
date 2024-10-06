@@ -9,14 +9,15 @@ const ejsMate = require('ejs-mate');
 const Session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
-const ExpressError = require('./utils/ExpressError');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('./models/user.js')
-
+const User = require('./models/user.js');
 const userRoutes = require('./routes/users.js')
 const campgroundsRoutes = require('./routes/campgrounds.js');
 const reviewsRoutes = require('./routes/reviews.js');
+const ExpressError = require('./utils/ExpressError');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 mongoose.connect('mongodb://localhost:27017/camp-journey');
 
@@ -35,13 +36,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 
 const sessionConfig = {
+    name: 'sessionHell',
     secret: 'thisshouldbebettersecret!',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
@@ -49,6 +53,48 @@ const sessionConfig = {
 
 app.use(Session(sessionConfig));
 app.use(flash());
+app.use(helmet());
+
+const scriptSrcUrls = [
+    "https://stackpath.bootstrapcdn.com/",
+    "https://kit.fontawesome.com/",
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+    "https://cdn.maptiler.com/", 
+];
+const styleSrcUrls = [
+    "https://kit-free.fontawesome.com/",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://fonts.googleapis.com/",
+    "https://use.fontawesome.com/",
+    "https://cdn.jsdelivr.net",
+    "https://cdn.maptiler.com/", 
+];
+const connectSrcUrls = [
+    "https://api.maptiler.com/", 
+];
+const fontSrcUrls = [];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com",
+                "https://images.unsplash.com/",
+                "https://api.maptiler.com/"
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);  
 
 app.use(passport.initialize());
 app.use(passport.session());
