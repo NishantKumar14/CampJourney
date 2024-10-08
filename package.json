@@ -1,8 +1,11 @@
 {
-  "name": "CampJourney",
+  "name": "campjourney",
   "version": "1.0.0",
   "description": "Camping Web Page.",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "repository": "",
   "author": "Nishant Kumar",
   "license": "MIT",
