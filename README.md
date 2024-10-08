@@ -4,7 +4,7 @@ This is a camping webpage where you can create and view camps or share experienc
 
 ## Live Demo
 
-[Live Demo](https://campjourney.onrender.com/)
+(https://campjourney.onrender.com/)
 
 ## Prerequisites
 
