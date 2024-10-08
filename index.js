@@ -20,7 +20,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongo');
-// const dbUrl = process.env.DB_URL
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-journey';
 mongoose.connect(dbUrl);
 
@@ -63,7 +62,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
