@@ -3,7 +3,10 @@ const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const Campground = require('../models/campground');
 
-mongoose.connect('mongodb+srv://nishant:Nishant123@cluster0.la0ppxm.mongodb.net/');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-journey';
+mongoose.connect(dbUrl);
+console.log("Seed database connected.");
+
 
 const db = mongoose.connection;
 
