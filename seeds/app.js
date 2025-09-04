@@ -5,7 +5,6 @@ const Campground = require('../models/campground');
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-journey';
 mongoose.connect(dbUrl);
-console.log("Seed database connected.");
 
 
 const db = mongoose.connection;
@@ -23,7 +22,7 @@ const seedDB = async() => {
         const random1000 = Math.floor(Math.random() * 1000);
         const Price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
-            author: '68b8786898f910258574da80',
+            author: '68b883661f52a15e666ba784',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${Sample(descriptors)}, ${Sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, modi qui! Accusantium incidunt ut nesciunt at adipisci. Aperiam molestiae quis voluptatem quod enim sapiente, voluptas ab veritatis culpa tenetur magnam.',
