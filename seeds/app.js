@@ -6,12 +6,9 @@ const mongoose = require('mongoose');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const Campground = require('../models/campground');
-const campground = require('../models/campground');
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/camp-journey';
 mongoose.connect(dbUrl);
-console.log(dbUrl);
-
 
 const db = mongoose.connection;
 
@@ -24,8 +21,6 @@ const Sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async() => {
     await Campground.deleteMany({});
-    const data = await campground.find();
-    // console.log(data);
     for(let i = 0; i < 300; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const Price = Math.floor(Math.random() * 20) + 10;
@@ -57,9 +52,7 @@ const seedDB = async() => {
                 }
             ]
         })
-        const newCamp = await camp.save();
-        // console.log(newCamp);
-        
+        await camp.save();
     }
 }
 
