@@ -71,7 +71,7 @@ const sessionConfig = {
 
 app.use(Session(sessionConfig));
 app.use(flash());
-app.use(helmet());
+// app.use(helmet());
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
@@ -89,30 +89,41 @@ const styleSrcUrls = [
     "https://cdn.maptiler.com/", 
 ];
 const connectSrcUrls = [
-    "https://api.maptiler.com/", 
+    "https://api.maptiler.com/",
+    "https://cdn.jsdelivr.net", 
+    "https://cdn.maptiler.com/",
 ];
-const fontSrcUrls = [];
+const fontSrcUrls = [
+    "https://fonts.gstatic.com/", 
+    "https://cdnjs.cloudflare.com/",
+    "https://cdn.jsdelivr.net",
+];
+
 app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: [],
-            connectSrc: ["'self'", ...connectSrcUrls],
-            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
-            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
-            workerSrc: ["'self'", "blob:"],
-            objectSrc: [],
-            imgSrc: [
-                "'self'",
-                "blob:",
-                "data:",
-                "https://res.cloudinary.com",
-                "https://images.unsplash.com/",
-                "https://api.maptiler.com/"
-            ],
-            fontSrc: ["'self'", ...fontSrcUrls],
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: [],
+                connectSrc: ["'self'", ...connectSrcUrls],
+                scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+                styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+                workerSrc: ["'self'", "blob:"],
+                objectSrc: [],
+                imgSrc: [
+                    "'self'",
+                    "blob:",
+                    "data:",
+                    `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`, 
+                    "https://images.unsplash.com/",
+                    "https://api.maptiler.com/"
+                ],
+                fontSrc: ["'self'", ...fontSrcUrls],
+            },
         },
+        crossOriginEmbedderPolicy: false,
+        crossOriginResourcePolicy: { policy: "cross-origin" },
     })
-);  
+);
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage ({
     cloudinary: cloudinary,
     params: {
         folder: 'CampJourney',
-        fallowedFormat: ['jgeg', 'jpg', 'png']
+        allowedFormats: ['jpeg', 'jpg', 'png']
     }, 
 });
 
