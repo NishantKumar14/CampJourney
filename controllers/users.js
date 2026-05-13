@@ -15,8 +15,12 @@ module.exports.register = async (req, res, next) => {
             res.redirect('/campgrounds');
         })
     } catch (error) {
+        if (error.code === 11000 && error.message.includes('email')) {
+            req.flash('error', 'A user with this email already registered.');
+            return res.redirect('/register');
+        }
         req.flash('error', error.message);
-        res.redirect('register');
+        res.redirect('/register');
     }
 }
 

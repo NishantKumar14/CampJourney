@@ -22,19 +22,20 @@ const Sample = array => array[Math.floor(Math.random() * array.length)];
 const seedDB = async() => {
     await Campground.deleteMany({});
     for(let i = 0; i < 50; i++) {
-        const random1000 = Math.floor(Math.random() * 1000);
+        const randomIndex = Math.floor(Math.random() * cities.length);
         const Price = Math.floor(Math.random() * 20) + 10;
+        
         const camp = new Campground({
             author: '68b9466b170ed9eec40cae71',
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${Sample(descriptors)}, ${Sample(places)}`,
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, modi qui! Accusantium incidunt ut nesciunt at adipisci. Aperiam molestiae quis voluptatem quod enim sapiente, voluptas ab veritatis culpa tenetur magnam.',
+            location: `${cities[randomIndex].city}, ${cities[randomIndex].state}`,
+            title: `${Sample(descriptors)} ${Sample(places)}`,
+            description: 'Experience the magic of Indian outdoors in our premium campsites. Unplug, relax, and connect with nature.',
             price: Price,
             geometry: {
                 type: 'Point',
                 coordinates: [ 
-                    cities[random1000].longitude,
-                    cities[random1000].latitude,
+                    cities[randomIndex].longitude,
+                    cities[randomIndex].latitude,
                 ]
             },
             images: [
