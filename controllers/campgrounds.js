@@ -3,7 +3,7 @@ const maptilerClient = require('@maptiler/client');
 maptilerClient.config.apiKey = process.env.MAPTILER_API_KEY;
 const { cloudinary } = require('../cloudinary/app');
 
-module.exports.index = async (req, res) => {
+module.exports.app = async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/app', { campgrounds });
 }

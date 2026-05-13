@@ -1,4 +1,4 @@
-if (process.env.Node_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
@@ -6,7 +6,6 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const Session = require('express-session');
 const flash = require('connect-flash-plus');
 const methodOverride = require('method-override');
 const passport = require('passport');
@@ -69,7 +68,7 @@ const sessionConfig = {
 }
 
 
-app.use(Session(sessionConfig));
+app.use(session(sessionConfig));
 app.use(flash());
 // app.use(helmet());
 
